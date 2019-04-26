@@ -11,7 +11,10 @@ from State import State
 root = State()
 
 #initialize Serial Information
-ser = serial.Serial('/dev/ttyACM0',9600) #ls /dev/tty* replace with correct ACM connection
+try:
+    ser = serial.Serial('/dev/ttyACM0',9600) #ls /dev/tty* replace with correct ACM connection
+except:
+    ser = serial.Serial('/dev/ttyACM1',9600)
 #ser = serial.Serial('COM4',9600)
 ser.baudrate=9600
 
@@ -63,12 +66,10 @@ if __name__ == '__main__':
     while True:
         if(root.val == 'pi'):
             if(root.blockDataSent == False):
-                time.sleep(4)
                 parsJson(root)
                 sendBlockData(root)
-                root.val = "ard"
+                root.val = "done"
             else:
                 pass
-        else:
-            pass
-            #receiveData(root)
+        elif(root.val == 'ard'):
+            receiveData(root)

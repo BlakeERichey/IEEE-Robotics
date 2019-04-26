@@ -40,13 +40,12 @@ double stDev(double arr[], int qty) {
 
 //returns angle robot is facing
 double getHeading(){
-  /* Get a new sensor event */ 
-  sensors_event_t event; mag.getEvent(&event);
   double sampleSum = 0;
-  
   double samples[100];
+  
   for(int index = 0; index < 100; index++){
-    
+    /* Get a new sensor event */ 
+    sensors_event_t event; mag.getEvent(&event);
     // Calculate the angle of the vector y,x
     float heading = (atan2(event.magnetic.y,event.magnetic.x) * 180) / PI;
     // Normalize to 0-360
@@ -59,7 +58,7 @@ double getHeading(){
   }
 
   double dev = stDev(samples, 100);
-  if(dev > 1){ return getHeading; }
+  if(dev > .15){ return getHeading(); }
   else{ //heading
     return sampleSum/100.0; 
   }

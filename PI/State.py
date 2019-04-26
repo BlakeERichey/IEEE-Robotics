@@ -1,7 +1,7 @@
 class State():
     
     def __init__(self):
-        self.val = 'pi'
+        self.val = 'ard'
         self.blockX = []   #string values of x
         self.blockY = []   #string values of y
         self.size   = 0    #number of blocks to go pick up
